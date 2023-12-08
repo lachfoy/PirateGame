@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://6oqh2abo6ixt"]
+
+[ext_resource type="Script" path="res://scenes/FPSController.cs" id="1_t0gc7"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u7uqx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a6nje"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_amsw1"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_u7uqx")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01779, 0.479926, -2.95371)
+mesh = SubResource("BoxMesh_a6nje")
+skeleton = NodePath("../Plane")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_t0gc7")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_amsw1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0207436, 0.874861, -0.483929, -0.408109, 0.434462, 0.802926, 0.912697, 0.214152, 0.348027, -0.829416, 4.56077, 0.117472)
+shadow_enabled = true
