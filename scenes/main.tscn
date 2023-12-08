@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://6oqh2abo6ixt"]
+[gd_scene load_steps=3 format=3 uid="uid://6oqh2abo6ixt"]
 
 [ext_resource type="Script" path="res://scripts/FPSController.cs" id="1_t0gc7"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_a6nje"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_amsw1"]
 
@@ -13,10 +11,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(20, 1, 20)
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01779, 0.479926, -2.95371)
-mesh = SubResource("BoxMesh_a6nje")
-skeleton = NodePath("")
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57187, 0.422517, -6.10189)
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.51331, 0.422517, 5.38757)
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41779, 0.422517, 2.08177)
+use_collision = true
+size = Vector3(3, 3, 3)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.0207436, 0.874861, -0.48393, -0.408109, 0.434462, 0.802926, 0.912697, 0.214152, 0.348027, -0.829416, 4.56077, 0.117472)
