@@ -24,7 +24,7 @@ public partial class FPSController : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 inputDir = Input.GetVector("strafe_left", "strafe_right", "walk_forward", "walk_backward");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, -1, inputDir.Y)).Normalized();
 
 		Velocity = direction * _speed;
 

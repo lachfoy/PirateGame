@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3fsj6jy33utt"]
+
+[ext_resource type="Texture2D" uid="uid://bv1nl6fye5d7s" path="res://sprites/doom.png" id="1_248s0"]
+
+[node name="Enemy" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 2
+texture = ExtResource("1_248s0")
+hframes = 4
+vframes = 5

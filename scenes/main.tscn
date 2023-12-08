@@ -1,8 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://6oqh2abo6ixt"]
+[gd_scene load_steps=5 format=3 uid="uid://6oqh2abo6ixt"]
 
 [ext_resource type="Script" path="res://scripts/FPSController.cs" id="1_t0gc7"]
+[ext_resource type="ArrayMesh" uid="uid://ctvg6yk8emd28" path="res://maps/test.obj" id="2_td88u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_amsw1"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vvf1c"]
+data = PackedVector3Array(-64, -16, 64, -64, -16, -64, -64, 16, 64, -64, 16, 64, -64, -16, -64, -64, 16, -64, -64, 15.9995, 64, 64, 15.9995, 64, -64, -16, 64, -64, -16, 64, 64, 15.9995, 64, 64, -16, 64, -64, -16, 64, 64, -16, 64, -64, -16, -64, -64, -16, -64, 64, -16, 64, 64, -16, -64, -64, 16, -64, 64, 16, -64, -64, 16, 64, -64, 16, 64, 64, 16, -64, 64, 16, 64, -64, -16, -64, 64, -16, -64, -64, 16, -64, -64, 16, -64, 64, -16, -64, 64, 16, -64, 64, 15.9995, 64, 64, 15.9995, -64, 64, -16, 64, 64, -16, 64, 64, 15.9995, -64, 64, -16, -64, -32, 16, 63.9998, -32, 16, 48, -32, 32, 63.9998, -32, 32, 63.9998, -32, 16, 48, -32, 32, 48, -32, 31.9998, 64, 32, 31.9998, 64, -32, 16, 64, -32, 16, 64, 32, 31.9998, 64, 32, 16, 64, -32, 16, 63.9998, 32, 16, 63.9998, -32, 16, 48, -32, 16, 48, 32, 16, 63.9998, 32, 16, 48, -32, 32, 48, 32, 32, 48, -32, 32, 64, -32, 32, 64, 32, 32, 48, 32, 32, 64, -32, 16, 48, 32, 16, 48, -32, 32, 48, -32, 32, 48, 32, 16, 48, 32, 32, 48, 32, 31.9998, 63.9998, 32, 31.9998, 48, 32, 16, 63.9998, 32, 16, 63.9998, 32, 31.9998, 48, 32, 16, 48, -112, -16, 64, -112, -16, -64, -96, 0, 64, -96, 0, 64, -112, -16, -64, -96, 0, -64, -96.0007, -0.0002, 64, -48, -0.0002, 64, -112, -16, 64, -112, -16, 64, -48, -0.0002, 64, -48, -16, 64, -112, -16, 64, -48, -16, 64, -112, -16, -64, -112, -16, -64, -48, -16, 64, -48, -16, -64, -96, 0, -64, -48, 0, -64, -96, 0, 64, -96, 0, 64, -48, 0, -64, -48, 0, 64, -112, -16, -64, -48, -16, -64, -96.0007, 0, -64, -96.0007, 0, -64, -48, -16, -64, -48, 0, -64, -48, -0.0002, 64, -48, -0.0002, -64, -48, -16, 64, -48, -16, 64, -48, -0.0002, -64, -48, -16, -64)
 
 [node name="Main" type="Node3D"]
 
@@ -34,8 +38,20 @@ shadow_enabled = true
 script = ExtResource("1_t0gc7")
 
 [node name="Camera3D" type="Camera3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0414677, 1.6, 0.000617981)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0416832, 0.999999, 0.000617981)
 shape = SubResource("CapsuleShape3D_amsw1")
+
+[node name="LevelBase" type="Node3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -18.95, -4.57808, 1.16689)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelBase"]
+mesh = ExtResource("2_td88u")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelBase/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelBase/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vvf1c")

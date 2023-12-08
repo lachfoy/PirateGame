@@ -19,6 +19,21 @@ config/icon="res://icon.svg"
 
 project/assembly_name="PirateGame"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/qodot/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Entities/": "red",
+"res://Properties/": "green",
+"res://addons/": "gray",
+"res://maps/": "orange",
+"res://scenes/": "orange",
+"res://scripts/": "blue"
+}
+
 [input]
 
 walk_forward={
