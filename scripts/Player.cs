@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class FPSController : CharacterBody3D
+public partial class Player : CharacterBody3D
 {
 	public float _speed = 8.0f;
 	public float _mouseSens = 0.3f;
@@ -35,7 +35,7 @@ public partial class FPSController : CharacterBody3D
 		for (int i = 0; i < GetSlideCollisionCount(); i++)
 		{
 			var collision = GetSlideCollision(i);
-			GD.Print("I collided with ", ((Node)collision.GetCollider()).Name);
+			//GD.Print("I collided with ", ((Node)collision.GetCollider()).Name);
 		}
 	}
 	

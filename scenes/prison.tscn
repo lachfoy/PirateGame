@@ -11,8 +11,8 @@
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="LevelBase/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268311, 0)
-size = Vector3(9, 0.463379, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.268311, 0)
+size = Vector3(10, 0.463379, 9)
 material = ExtResource("1_63fd8")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="LevelBase/CSGCombiner3D"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0wj1wqf6p870"]
+
+[ext_resource type="Script" path="res://scripts/Pickup.cs" id="1_wpswm"]
+[ext_resource type="Texture2D" uid="uid://bq4t5fq34gf7n" path="res://sprites/temp_wep.png" id="2_7c7c8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hit0i"]
+
+[node name="Pickup" type="Area3D"]
+collision_layer = 2
+script = ExtResource("1_wpswm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+billboard = 2
+texture = ExtResource("2_7c7c8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hit0i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
