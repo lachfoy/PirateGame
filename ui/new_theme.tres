@@ -3,5 +3,5 @@
 [ext_resource type="FontFile" uid="uid://c12lk3el5j0ks" path="res://fonts/PixelPirateRegular-PXYZ.ttf" id="1_yy7rt"]
 
 [resource]
-Label/font_sizes/font_size = 24
-Label/fonts/font = ExtResource("1_yy7rt")
+default_font = ExtResource("1_yy7rt")
+default_font_size = 24
