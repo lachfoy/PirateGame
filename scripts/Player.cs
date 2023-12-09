@@ -11,6 +11,7 @@ public partial class Player : CharacterBody3D
 
 	private Weapon[] _weapons; // List of weapons
 	private int _currentWeaponIndex = -1;
+	private bool _canShoot = true;
 	
 	[Signal]
 	public delegate void PickupNotificationEventHandler(string weaponName);
@@ -45,11 +46,12 @@ public partial class Player : CharacterBody3D
 			// Shoot current weapon
 			if (_currentWeaponIndex != -1)
 			{
-				if (_weapons[_currentWeaponIndex].Ammo > 0)
+				if (_weapons[_currentWeaponIndex].Ammo > 0 && _canShoot)
 				{
 					_weapons[_currentWeaponIndex].Shoot();
 					
 					_animationPlayer.Play("fire");
+					_canShoot = false;
 					
 					_weapons[_currentWeaponIndex].Ammo--;
 					EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
@@ -147,6 +149,16 @@ public partial class Player : CharacterBody3D
 			pickup.QueueFree(); // Delete the pickup
 		}
 	}
+	
+	private void _on_animation_player_animation_finished(StringName anim_name)
+	{
+		if (anim_name == "fire")
+		{
+			_canShoot = true;
+		}
+	}
 }
+
+
 
 
