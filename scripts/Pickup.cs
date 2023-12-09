@@ -1,25 +1,12 @@
 using Godot;
-using System;
-
 
 public partial class Pickup : Area3D
 {
-	public enum EWeaponType
-	{
-		Slingshot,
-		Pistol,
-		Blunderbuss,
-		Rifle
-	}
-
 	[Export]
 	public EWeaponType WeaponType = EWeaponType.Slingshot;
 	
 	[Export]
 	public int Ammo = 10;
-
-	[Export]
-	public int ReserveAmmo = 10;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

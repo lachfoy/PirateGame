@@ -73,6 +73,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.24197, 0.985797, -1.24932)
 [node name="Pickup2" parent="." instance=ExtResource("5_62v6o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06964, 0.922082, 3.44244)
 
+[node name="Pickup5" parent="." instance=ExtResource("5_62v6o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45404, 0.922082, 3.44244)
+
+[node name="Pickup6" parent="." instance=ExtResource("5_62v6o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24253, 0.922082, 3.44244)
+
+[node name="Pickup7" parent="." instance=ExtResource("5_62v6o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38018, 0.922082, 3.44244)
+
 [node name="Pickup3" parent="." instance=ExtResource("7_4nbgk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58971, 1.09241, 6.23528)
 
