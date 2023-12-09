@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://4bhjds5rdosi"]
+
+[ext_resource type="Texture2D" uid="uid://djppmchqecaf5" path="res://sprites/gatlin_gun.jpeg" id="1_7rn8t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p840k"]
+
+[node name="GatlinGun" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_p840k")
+
+[node name="Sprite3D" type="Sprite3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+billboard = 2
+texture = ExtResource("1_7rn8t")
