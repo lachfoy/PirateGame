@@ -12,8 +12,7 @@ public partial class Player : CharacterBody3D
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		anim = GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Play("fire");
+		anim = GetNode<AnimationPlayer>("CanvasLayer/Control/Sprite2D/AnimationPlayer");
 	}
 
 	public override void _Process(double delta)
@@ -22,6 +21,10 @@ public partial class Player : CharacterBody3D
 		if (Input.IsPhysicalKeyPressed(Key.Escape))
 		{
 			GetTree().Quit();
+		}
+		if (Input.IsActionPressed("Primary_Fire"))
+		{
+			anim.Play("fire");
 		}
 	}
 	public override void _PhysicsProcess(double delta)
