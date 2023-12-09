@@ -22,7 +22,7 @@ public partial class Player : CharacterBody3D
 		{
 			GetTree().Quit();
 		}
-		if (Input.IsActionPressed("Primary_Fire"))
+		if (Input.IsActionPressed("primary_fire"))
 		{
 			anim.Play("fire");
 		}

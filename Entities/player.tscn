@@ -6,7 +6,6 @@
 [sub_resource type="Animation" id="Animation_3qt7p"]
 resource_name = "fire"
 length = 0.4
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
