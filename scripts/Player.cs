@@ -47,9 +47,18 @@ public partial class Player : CharacterBody3D
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
 			RotateY(Mathf.DegToRad(-eventMouseMotion.Relative.X * _mouseSens));
-			_camera.RotateX(Mathf.DegToRad(-eventMouseMotion.Relative.Y * _mouseSens));
+
+			// Calculate the new rotation angle
+			float newAngle = _camera.RotationDegrees.X + (-eventMouseMotion.Relative.Y * _mouseSens);
+
+			// Clamp the new angle to the range [-70, 70]
+			newAngle = Mathf.Clamp(newAngle, -70, 70);
+
+			// Apply the clamped angle
+			_camera.RotationDegrees = new Vector3(newAngle, _camera.RotationDegrees.Y, _camera.RotationDegrees.Z);
 		}
 	}
+
 	
 	private void _on_area_3d_area_entered(Area3D area)
 	{

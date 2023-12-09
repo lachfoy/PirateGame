@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://6oqh2abo6ixt"]
 
-[ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/Player.tscn" id="2_ljhee"]
+[ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/player.tscn" id="2_ljhee"]
 [ext_resource type="ArrayMesh" uid="uid://ctvg6yk8emd28" path="res://maps/test.obj" id="2_td88u"]
 [ext_resource type="Material" uid="uid://6tblt6x6ucsv" path="res://textures/dev.tres" id="3_5ae0l"]
 [ext_resource type="PackedScene" uid="uid://c3fsj6jy33utt" path="res://Entities/Enemy.tscn" id="4_dmif5"]
-[ext_resource type="PackedScene" path="res://Entities/Slingshot.tscn" id="5_62v6o"]
-[ext_resource type="PackedScene" path="res://Entities/Pistol.tscn" id="6_t2tnx"]
-[ext_resource type="PackedScene" path="res://Entities/Rifle.tscn" id="7_4nbgk"]
-[ext_resource type="PackedScene" path="res://Entities/Blunderbuss.tscn" id="8_4daks"]
+[ext_resource type="PackedScene" uid="uid://bo55b5oqlw5ni" path="res://Entities/Slingshot.tscn" id="5_62v6o"]
+[ext_resource type="PackedScene" uid="uid://cjmr5k72rux3o" path="res://Entities/Pistol.tscn" id="6_t2tnx"]
+[ext_resource type="PackedScene" uid="uid://bxoup8dwryxwq" path="res://Entities/Rifle.tscn" id="7_4nbgk"]
+[ext_resource type="PackedScene" uid="uid://dvsymru5gykx7" path="res://Entities/Blunderbuss.tscn" id="8_4daks"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vvf1c"]
 data = PackedVector3Array(-64, -16, 64, -64, -16, -64, -64, 16, 64, -64, 16, 64, -64, -16, -64, -64, 16, -64, -64, 15.9995, 64, 64, 15.9995, 64, -64, -16, 64, -64, -16, 64, 64, 15.9995, 64, 64, -16, 64, -64, -16, 64, 64, -16, 64, -64, -16, -64, -64, -16, -64, 64, -16, 64, 64, -16, -64, -64, 16, -64, 64, 16, -64, -64, 16, 64, -64, 16, 64, 64, 16, -64, 64, 16, 64, -64, -16, -64, 64, -16, -64, -64, 16, -64, -64, 16, -64, 64, -16, -64, 64, 16, -64, 64, 15.9995, 64, 64, 15.9995, -64, 64, -16, 64, 64, -16, 64, 64, 15.9995, -64, 64, -16, -64, -32, 16, 63.9998, -32, 16, 48, -32, 32, 63.9998, -32, 32, 63.9998, -32, 16, 48, -32, 32, 48, -32, 31.9998, 64, 32, 31.9998, 64, -32, 16, 64, -32, 16, 64, 32, 31.9998, 64, 32, 16, 64, -32, 16, 63.9998, 32, 16, 63.9998, -32, 16, 48, -32, 16, 48, 32, 16, 63.9998, 32, 16, 48, -32, 32, 48, 32, 32, 48, -32, 32, 64, -32, 32, 64, 32, 32, 48, 32, 32, 64, -32, 16, 48, 32, 16, 48, -32, 32, 48, -32, 32, 48, 32, 16, 48, 32, 32, 48, 32, 31.9998, 63.9998, 32, 31.9998, 48, 32, 16, 63.9998, 32, 16, 63.9998, 32, 31.9998, 48, 32, 16, 48, -112, -16, 64, -112, -16, -64, -96, 0, 64, -96, 0, 64, -112, -16, -64, -96, 0, -64, -96.0007, -0.0002, 64, -48, -0.0002, 64, -112, -16, 64, -112, -16, 64, -48, -0.0002, 64, -48, -16, 64, -112, -16, 64, -48, -16, 64, -112, -16, -64, -112, -16, -64, -48, -16, 64, -48, -16, -64, -96, 0, -64, -48, 0, -64, -96, 0, 64, -96, 0, 64, -48, 0, -64, -48, 0, 64, -112, -16, -64, -48, -16, -64, -96.0007, 0, -64, -96.0007, 0, -64, -48, -16, -64, -48, 0, -64, -48, -0.0002, 64, -48, -0.0002, -64, -48, -16, 64, -48, -16, 64, -48, -0.0002, -64, -48, -16, -64)
