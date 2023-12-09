@@ -8,6 +8,9 @@ public partial class Player : CharacterBody3D
 	private Camera3D _camera;
 	public AnimationPlayer anim;
 	
+	[Signal]
+	public delegate void PickupNotificationEventHandler(String weaponName);
+	
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
@@ -68,14 +71,18 @@ public partial class Player : CharacterBody3D
 		Pickup pickup = area as Pickup;
 		if (pickup != null)
 		{
-			GD.Print(String.Format("Picked up weapon of type {0}", pickup.WeaponType.ToString()));
+			//GD.Print(String.Format("Picked up weapon of type {0}", pickup.WeaponType.ToString()));
 			
 			// If we don't already have that weapon then we add it 
 			
+			// Emit a pickup notifaction signal
+			EmitSignal(SignalName.PickupNotification, pickup.WeaponType.ToString());
 			
 			pickup.QueueFree(); // Delete the pickup
+
 		}
 	}
+	
 }
 
 
