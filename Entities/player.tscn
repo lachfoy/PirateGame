@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf4xa332dlkwp"]
+
+[ext_resource type="Script" path="res://scripts/FPSController.cs" id="1_do78j"]
+[ext_resource type="PackedScene" uid="uid://ddcg11wnj2okj" path="res://ui/hud.tscn" id="2_rm630"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hcds3"]
+
+[node name="Player" type="Node3D"]
+
+[node name="player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_do78j")
+
+[node name="Camera3D" type="Camera3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0414677, 1.6, 0.000617981)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0416832, 0.999999, 0.000617981)
+shape = SubResource("CapsuleShape3D_hcds3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("2_rm630")]

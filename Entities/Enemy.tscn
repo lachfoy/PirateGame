@@ -1,11 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3fsj6jy33utt"]
+[gd_scene load_steps=3 format=3 uid="uid://c3fsj6jy33utt"]
 
 [ext_resource type="Texture2D" uid="uid://bv1nl6fye5d7s" path="res://sprites/doom.png" id="1_248s0"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5wypm"]
+size = Vector3(0.394653, 1.70532, 1.18054)
+
 [node name="Enemy" type="Node3D"]
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_5wypm")
+
+[node name="Sprite3D" type="Sprite3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00567627, 0.0311279, -0.00939941)
 billboard = 2
+shaded = true
 texture = ExtResource("1_248s0")
 hframes = 4
 vframes = 5

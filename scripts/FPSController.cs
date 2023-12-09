@@ -6,11 +6,14 @@ public partial class FPSController : CharacterBody3D
 	public float _speed = 8.0f;
 	public float _mouseSens = 0.3f;
 	private Camera3D _camera;
+	public AnimationPlayer anim;
 	
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		anim.Play("fire");
 	}
 
 	public override void _Process(double delta)

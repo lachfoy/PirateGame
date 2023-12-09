@@ -8,6 +8,7 @@
 [node name="LevelBase" type="Node3D" parent="."]
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="LevelBase"]
+use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="LevelBase/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268311, 0)
@@ -37,4 +38,10 @@ depth = 3.0
 material = ExtResource("1_63fd8")
 
 [node name="Enemy" parent="." instance=ExtResource("2_0ver4")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0.611794, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86393, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.858078, 0.241443, -0.453218, 0, 0.882573, 0.470175, 0.513519, 0.403447, -0.757317, -4.89151, 7.65256, -7.54391)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.642266, -0.333043, -0.690346, 0.766482, 0.27907, 0.578468, 0, -0.900668, 0.434508, 0, 0, 0)
