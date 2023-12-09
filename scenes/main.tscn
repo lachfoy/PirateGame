@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://6oqh2abo6ixt"]
 
-[ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/Player.tscn" id="2_ljhee"]
+[ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/player.tscn" id="2_ljhee"]
 [ext_resource type="ArrayMesh" uid="uid://ctvg6yk8emd28" path="res://maps/test.obj" id="2_td88u"]
 [ext_resource type="Material" uid="uid://6tblt6x6ucsv" path="res://textures/dev.tres" id="3_5ae0l"]
 [ext_resource type="PackedScene" uid="uid://c3fsj6jy33utt" path="res://Entities/Enemy.tscn" id="4_dmif5"]

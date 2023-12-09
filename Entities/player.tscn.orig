@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://cf4xa332dlkwp"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_do78j"]
+[ext_resource type="Theme" uid="uid://cntca1dvo47g2" path="res://ui/new_theme.tres" id="2_bqesb"]
+[ext_resource type="Script" path="res://scripts/NotificationList.cs" id="2_owtp3"]
+[ext_resource type="Texture2D" uid="uid://oxfuaqqay7i7" path="res://sprites/outlaws.png" id="2_xheyt"]
+[ext_resource type="Script" path="res://scripts/AmmoCounter.cs" id="4_ncqq3"]
+
+[sub_resource type="Animation" id="Animation_3qt7p"]
+resource_name = "fire"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qdfxs"]
+_data = {
+"fire": SubResource("Animation_3qt7p")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hcds3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1qr63"]
+size = Vector3(2, 1, 2)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_do78j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bqesb")
+
+<<<<<<< HEAD
+[node name="NotificationList" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+=======
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+>>>>>>> 9e2877a (Added Gatlin Gun to Prison)
+offset_right = 77.0
+offset_bottom = 158.0
+script = ExtResource("2_owtp3")
+
+<<<<<<< HEAD
+[node name="AmmoCounter" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -246.0
+offset_top = -33.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+script = ExtResource("4_ncqq3")
+=======
+[node name="DebugLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 336.0
+offset_right = 281.0
+offset_bottom = 369.0
+text = "DEBUG"
+>>>>>>> 9e2877a (Added Gatlin Gun to Prison)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+texture_filter = 1
+position = Vector2(563, 530)
+scale = Vector2(0.783223, 0.537081)
+texture = ExtResource("2_xheyt")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_qdfxs")
+}
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0414677, 1.6, 0.000617981)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0416832, 0.999999, 0.000617981)
+shape = SubResource("CapsuleShape3D_hcds3")
+
+[node name="WeaponPickupArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WeaponPickupArea"]
+shape = SubResource("BoxShape3D_1qr63")
+
+[connection signal="PickupNotification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_pickup_notification"]
+[connection signal="PickupNotification" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_pickup_notification"]
+[connection signal="WeaponChanged" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_weapon_changed"]
+[connection signal="area_entered" from="WeaponPickupArea" to="." method="_on_area_3d_area_entered"]
