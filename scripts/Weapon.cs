@@ -1,3 +1,4 @@
+using Godot;
 using System;
 
 public enum EWeaponType
@@ -14,6 +15,8 @@ public class Weapon
 	public bool HasThisWeapon = false;
 	public String WeaponName = "generic weapon";
 	public int Ammo = 10;
+
+	public virtual void Shoot() {}
 }
 
 public class Slingshot : Weapon
@@ -23,5 +26,22 @@ public class Slingshot : Weapon
 		WeaponName = "Slingshot";
 	}
 
+	public override void Shoot()
+	{
+		GD.Print("Pew slingshot");
+	}
+}
+
+public class Pistol : Weapon
+{
+	public Pistol()
+	{
+		WeaponName = "Pistol";
+	}
+
+	public override void Shoot()
+	{
+		GD.Print("Pew Pistol");
+	}
 }
 

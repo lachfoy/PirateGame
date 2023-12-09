@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cf4xa332dlkwp"]
+[gd_scene load_steps=10 format=3 uid="uid://cf4xa332dlkwp"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_do78j"]
 [ext_resource type="Theme" uid="uid://cntca1dvo47g2" path="res://ui/new_theme.tres" id="2_bqesb"]
 [ext_resource type="Script" path="res://scripts/NotificationList.cs" id="2_owtp3"]
 [ext_resource type="Texture2D" uid="uid://oxfuaqqay7i7" path="res://sprites/outlaws.png" id="2_xheyt"]
+[ext_resource type="Script" path="res://scripts/AmmoCounter.cs" id="4_ncqq3"]
 
 [sub_resource type="Animation" id="Animation_3qt7p"]
 resource_name = "fire"
@@ -38,22 +39,32 @@ script = ExtResource("1_do78j")
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_bqesb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+[node name="NotificationList" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
 offset_right = 77.0
 offset_bottom = 158.0
 script = ExtResource("2_owtp3")
 
-[node name="DebugLabel" type="Label" parent="CanvasLayer/Control"]
-offset_left = 152.0
-offset_top = 336.0
-offset_right = 281.0
-offset_bottom = 369.0
-text = "DEBUG"
+[node name="AmmoCounter" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -246.0
+offset_top = -33.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+script = ExtResource("4_ncqq3")
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
 texture_filter = 1
@@ -79,5 +90,7 @@ shape = SubResource("CapsuleShape3D_hcds3")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="WeaponPickupArea"]
 shape = SubResource("BoxShape3D_1qr63")
 
-[connection signal="PickupNotification" from="." to="CanvasLayer/Control/VBoxContainer" method="_on_player_pickup_notification"]
+[connection signal="PickupNotification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_pickup_notification"]
+[connection signal="PickupNotification" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_pickup_notification"]
+[connection signal="WeaponChanged" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_weapon_changed"]
 [connection signal="area_entered" from="WeaponPickupArea" to="." method="_on_area_3d_area_entered"]

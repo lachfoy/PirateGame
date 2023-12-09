@@ -12,24 +12,24 @@ public partial class Player : CharacterBody3D
 	private Weapon[] _weapons; // List of weapons
 	private int _currentWeaponIndex = -1;
 	
-	Label _debugLabel; // REMOVE THIS
-	
 	[Signal]
-	public delegate void PickupNotificationEventHandler(String weaponName);
+	public delegate void PickupNotificationEventHandler(string weaponName);
+
+	[Signal]
+	public delegate void WeaponChangedEventHandler(int newIndex, int ammo); // Maybe this should be weapon type instead of index
+
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/Sprite2D/AnimationPlayer");
 
+		// Initialize all the weapons
 		_weapons = new Weapon[(int)EWeaponType.WeaponTypeCount];
 		_weapons[(int)EWeaponType.Slingshot] = new Slingshot();
-		_weapons[(int)EWeaponType.Pistol] = new Weapon();
+		_weapons[(int)EWeaponType.Pistol] = new Pistol();
 		_weapons[(int)EWeaponType.Blunderbuss] = new Weapon();
 		_weapons[(int)EWeaponType.Rifle] = new Weapon();
-
-
-		_debugLabel = GetNode<Label>("CanvasLayer/Control/DebugLabel");
 	}
 
 	public override void _Process(double delta)
@@ -39,9 +39,47 @@ public partial class Player : CharacterBody3D
 		{
 			GetTree().Quit();
 		}
-		if (Input.IsActionPressed("primary_fire"))
+
+		if (Input.IsActionJustPressed("primary_fire"))
 		{
-			_animationPlayer.Play("fire");
+			// Shoot current weapon
+			if (_currentWeaponIndex != -1)
+			{
+				if (_weapons[_currentWeaponIndex].Ammo > 0)
+				{
+					_weapons[_currentWeaponIndex].Shoot();
+					
+					_animationPlayer.Play("fire");
+					
+					_weapons[_currentWeaponIndex].Ammo--;
+					EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
+				}
+			}
+		}
+
+		// REPLACE WITH INPUT ACTIONS
+		if (Input.IsPhysicalKeyPressed(Key.Key1) && _weapons[(int)EWeaponType.Slingshot].HasThisWeapon)
+		{
+			_currentWeaponIndex = (int)EWeaponType.Slingshot;
+			EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
+		}
+
+		if (Input.IsPhysicalKeyPressed(Key.Key2) && _weapons[(int)EWeaponType.Pistol].HasThisWeapon)
+		{
+			_currentWeaponIndex = (int)EWeaponType.Pistol;
+			EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
+		}
+
+		if (Input.IsPhysicalKeyPressed(Key.Key3) && _weapons[(int)EWeaponType.Blunderbuss].HasThisWeapon)
+		{
+			_currentWeaponIndex = (int)EWeaponType.Slingshot;
+			EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
+		}
+
+		if (Input.IsPhysicalKeyPressed(Key.Key4) && _weapons[(int)EWeaponType.Rifle].HasThisWeapon)
+		{
+			_currentWeaponIndex = (int)EWeaponType.Slingshot;
+			EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
 		}
 	}
 
@@ -92,28 +130,23 @@ public partial class Player : CharacterBody3D
 				_weapons[weaponPickupIndex].HasThisWeapon = true;
 				_weapons[weaponPickupIndex].Ammo = pickup.Ammo;
 
-				// DEBUG STRING!
-				String debugString = String.Format("Current weapon: {0}, Ammo: {1}", _weapons[weaponPickupIndex].WeaponName, _weapons[weaponPickupIndex].Ammo);
-				_debugLabel.Text = debugString;
-				
+				_currentWeaponIndex = weaponPickupIndex;
+				EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
+
 				EmitSignal(SignalName.PickupNotification, _weapons[weaponPickupIndex].WeaponName); // Emit a pickup notifaction signal
 			}
 			else // Otherwise add ammo to the weapon
 			{
 				_weapons[weaponPickupIndex].Ammo += pickup.Ammo;
+				EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
 
-				// DEBUG STRING!
-				String debugString = String.Format("Current weapon: {0}, Ammo: {1}", _weapons[weaponPickupIndex].WeaponName, _weapons[weaponPickupIndex].Ammo);
-				_debugLabel.Text = debugString;
-
-				String notificationString = String.Format("{0} Ammo for {1}", pickup.Ammo, _weapons[weaponPickupIndex].WeaponName);
+				string notificationString = string.Format("{0} Ammo for {1}", pickup.Ammo, _weapons[weaponPickupIndex].WeaponName);
 				EmitSignal(SignalName.PickupNotification, notificationString); // Emit a pickup notifaction signal
 			}
 
 			pickup.QueueFree(); // Delete the pickup
 		}
 	}
-	
 }
 
 
