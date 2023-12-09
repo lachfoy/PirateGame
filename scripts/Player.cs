@@ -47,4 +47,23 @@ public partial class Player : CharacterBody3D
 			_camera.RotateX(Mathf.DegToRad(-eventMouseMotion.Relative.Y * _mouseSens));
 		}
 	}
+	
+	private void _on_area_3d_area_entered(Area3D area)
+	{
+		// Replace with function body.
+		GD.Print("Weapon pickup");
+		
+		Pickup pickup = area as Pickup;
+		if (pickup != null)
+		{
+			GD.Print(String.Format("Picked up weapon of type {0}", pickup.WeaponType.ToString()));
+			
+			// If we don't already have that weapon then we add it 
+			
+			
+			pickup.QueueFree(); // Delete the pickup
+		}
+	}
 }
+
+
