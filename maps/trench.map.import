@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://bb5irwkpgn4u4"
+path="res://.godot/imported/trench.map-8b2c7f193b7a08893101b52f7e5030d0.tres"
+
+[deps]
+
+source_file="res://maps/trench.map"
+dest_files=["res://.godot/imported/trench.map-8b2c7f193b7a08893101b52f7e5030d0.tres"]
+
+[params]
+
