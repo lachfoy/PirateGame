@@ -10,8 +10,11 @@ export_presets.cfg
 *.translation
 
 # Mono-specific ignores
-.vs/PriateGame/FileContentIndex/
-.vs/PriateGame/DesignTimeBuild/
+.vs/PirateGame/FileContentIndex/
+.vs/PirateGame/DesignTimeBuild/
 .mono/
 data_*/
 mono_crash.*.json
+
+# Qodot config
+addons/qodot/game_definitions/trenchbroom_game_config.tres
