@@ -1,0 +1,172 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkeni2sj8fkqr"]
+
+[ext_resource type="Material" uid="uid://6tblt6x6ucsv" path="res://textures/dev.tres" id="1_qptwc"]
+[ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/player.tscn" id="2_1bec0"]
+[ext_resource type="PackedScene" path="res://Entities/Slingshot.tscn" id="3_m2n7q"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="PrisonCell" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0151691, 0, 0.00251102)
+gi_mode = 2
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.5, 0.25, 3)
+size = Vector3(2, 1, 7)
+material = ExtResource("1_qptwc")
+
+[node name="Floor2" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 3.5, 0.25, 3)
+size = Vector3(2, 1, 7)
+material = ExtResource("1_qptwc")
+
+[node name="Floor3" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 7.5, 0.25, 3.5)
+size = Vector3(4, 1, 8)
+material = ExtResource("1_qptwc")
+
+[node name="Floor4" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 0.5, 0, 1, 0, -4.37114e-08, 5.28687, 0.25, 3)
+gi_mode = 2
+size = Vector3(2, 1, 7.57373)
+material = ExtResource("1_qptwc")
+
+[node name="Roof" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 0.5, 0, 1, 0, -4.37114e-08, 3.5, 4.25, 0.5)
+size = Vector3(3, 1, 9)
+material = ExtResource("1_qptwc")
+
+[node name="Roof2" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 0.5, 0, 1, 0, -4.37114e-08, 3.75, 4.25, 5.5)
+size = Vector3(3, 1, 8.48633)
+material = ExtResource("1_qptwc")
+
+[node name="Roof3" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 0.5, 0, 1, 0, -4.37114e-08, 8, 4.25, 3.24219)
+size = Vector3(8.5, 1, 2)
+material = ExtResource("1_qptwc")
+
+[node name="Roof4" type="CSGPolygon3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 4, 2.5)
+polygon = PackedVector2Array(-1, 0, 0, 1, 1, 1, 2, 0, 0.5, 0.5)
+depth = 9.0
+material = ExtResource("1_qptwc")
+
+[node name="Wall" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0.5)
+size = Vector3(1, 5, 3)
+material = ExtResource("1_qptwc")
+
+[node name="Wall2" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0.5)
+size = Vector3(1, 5, 3)
+material = ExtResource("1_qptwc")
+
+[node name="Wall3" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5.5)
+size = Vector3(1, 5, 3)
+material = ExtResource("1_qptwc")
+
+[node name="Wall4" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 5.5)
+size = Vector3(1, 5, 3)
+material = ExtResource("1_qptwc")
+
+[node name="Wall5" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 3)
+size = Vector3(1, 5, 8)
+material = ExtResource("1_qptwc")
+
+[node name="Wall6" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 2, 3.5)
+size = Vector3(1, 5, 9)
+material = ExtResource("1_qptwc")
+
+[node name="OuterWall" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.2558, 2, 7)
+size = Vector3(1, 5, 8.5)
+material = ExtResource("1_qptwc")
+
+[node name="OuterWall2" type="CSGBox3D" parent="PrisonCell"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.5, 2, -1)
+size = Vector3(1, 5, 11)
+material = ExtResource("1_qptwc")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55984, -0.160287)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0.176957, 0.753822, 0.753372, 0.740018, 1, 0)
+depth = 1.68
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.55984, -0.160287)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0.176957, 0.753822, 0.753372, 0.740018, 1, 0)
+depth = 1.68
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.55984, 7.83971)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0.176957, 0.753822, 0.753372, 0.740018, 1, 0)
+depth = 1.68
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="PrisonCell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55984, 7.83971)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0.176957, 0.753822, 0.753372, 0.740018, 1, 0)
+depth = 1.68
+
+[node name="Player" parent="." instance=ExtResource("2_1bec0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1, 0.2)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.535647, 0.461608, 0, 0.652813, 0.757519, -0.707107, -0.535647, 0.461608, 0, 6, 0)
+light_color = Color(1, 0.941176, 0.862745, 1)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.707107, 0.535647, -0.461608, 5.32907e-15, 0.652813, 0.757519, 0.707107, 0.535647, -0.461608, 0, 6, 0)
+light_color = Color(0.913725, 1, 1, 1)
+light_energy = 0.2
+
+[node name="Pickup" parent="." instance=ExtResource("3_m2n7q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50627, 1.15628, 5.49908)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999, -0.00448548, 0, 0.00448548, 0.99999, 6.5, 0, 10.5)
+size = Vector3(36, 1, 22)
+material = ExtResource("1_qptwc")
+
+[node name="Ground2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3, 10.5)
+size = Vector3(1, 5, 22)
+material = ExtResource("1_qptwc")
+
+[node name="Ground3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 3, 21)
+size = Vector3(1, 5, 35)
+material = ExtResource("1_qptwc")
+
+[node name="Ground4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.5, 3, -1)
+size = Vector3(1, 5, 10)
+material = ExtResource("1_qptwc")
+
+[node name="Ground5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 3, -1)
+size = Vector3(1, 5, 15)
+material = ExtResource("1_qptwc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 6.17221, 10)
+size = Vector3(5, 4, 19)
+material = ExtResource("1_qptwc")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(-2.57511e-07, -0.987585, 0, 5.89117, -4.31687e-08, 0, 0, 0, 14.5728, 26.7017, 3.98267, 10.0505)
+operation = 2
+height = 6.0
