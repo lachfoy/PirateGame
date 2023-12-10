@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://6tblt6x6ucsv" path="res://textures/dev.tres" id="1_qptwc"]
 [ext_resource type="PackedScene" uid="uid://cf4xa332dlkwp" path="res://Entities/player.tscn" id="2_1bec0"]
-[ext_resource type="PackedScene" path="res://Entities/Slingshot.tscn" id="3_m2n7q"]
+[ext_resource type="PackedScene" uid="uid://bo55b5oqlw5ni" path="res://Entities/Slingshot.tscn" id="3_m2n7q"]
 
 [node name="Node3D" type="Node3D"]
 
