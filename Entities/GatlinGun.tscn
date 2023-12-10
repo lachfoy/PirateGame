@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://4bhjds5rdosi"]
+[gd_scene load_steps=5 format=3 uid="uid://4bhjds5rdosi"]
 
 [ext_resource type="Script" path="res://scripts/GatlinGun.cs" id="1_d0h3f"]
 [ext_resource type="Texture2D" uid="uid://cr0fsmr545do3" path="res://sprites/GatlinGun.png" id="1_oqr83"]
+[ext_resource type="Texture2D" uid="uid://bagy1uuy60las" path="res://sprites/GatlinPOV.png" id="3_td2ih"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p840k"]
 
@@ -10,11 +11,70 @@ script = ExtResource("1_d0h3f")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="Area3D" type="Area3D" parent="StaticBody3D"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D/Area3D"]
 shape = SubResource("BoxShape3D_p840k")
 
-[node name="Sprite3D" type="Sprite3D" parent="StaticBody3D/CollisionShape3D"]
+[node name="Sprite3D" type="Sprite3D" parent="StaticBody3D"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -0.00171638, 1.19209e-07, -0.000536203)
 billboard = 2
 texture_filter = 0
 texture = ExtResource("1_oqr83")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 0.4, 0.000686552, -4.76836e-08, 0.000214481)
+shape = SubResource("BoxShape3D_p840k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -11.5
+offset_right = 91.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS E TO USE"
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_right = 100.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control2"]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("3_td2ih")
+
+[connection signal="body_entered" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_exited"]

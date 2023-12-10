@@ -6,6 +6,6 @@ public partial class NotificationList : VBoxContainer
 	{
 		NotificationLabel label = new NotificationLabel();
 		label.Text = notificationString;
-        AddChild(label);
+		AddChild(label);
 	}
 }
