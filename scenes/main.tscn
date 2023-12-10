@@ -91,6 +91,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34856, 1.21913, 1.30552)
 
 [node name="GatlinGun" parent="." instance=ExtResource("9_khr7x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.344446, 1.5, 7.39294)
-
-[connection signal="Mounting" from="GatlinGun" to="Player" method="_on_gatlin_gun_mounting"]
-[connection signal="Unmounting" from="GatlinGun" to="Player" method="_on_gatlin_gun_unmounting"]

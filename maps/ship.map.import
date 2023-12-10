@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://2sfp68vtykos"
+path="res://.godot/imported/ship.map-46c5e895310f1ed5f6e59d7850999b27.tres"
+
+[deps]
+
+source_file="res://maps/ship.map"
+dest_files=["res://.godot/imported/ship.map-46c5e895310f1ed5f6e59d7850999b27.tres"]
+
+[params]
+
