@@ -3,7 +3,7 @@ public partial class Player : CharacterBody3D
 {
 	private bool _active = true;
 
-	private float _speed = 8.0f;
+	private float _speed = 6.0f;
 	private float _mouseSens = 0.3f;
 	private Camera3D _camera;
 	private RayCast3D _ray;
@@ -13,8 +13,12 @@ public partial class Player : CharacterBody3D
 	private Weapon[] _weapons; // List of weapons
 	private int _currentWeaponIndex = -1;
 	private bool _canShoot = true;
-	
-	[Signal]
+
+	private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	private float _jumpSpeed = 3.0f;
+
+
+    [Signal]
 	public delegate void NotificationEventHandler(string notificationString);
 
 	[Signal]
@@ -103,14 +107,30 @@ public partial class Player : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!_active) return;
-		Vector2 inputDir = Input.GetVector("strafe_left", "strafe_right", "walk_forward", "walk_backward");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, -1, inputDir.Y)).Normalized();
 
-		Velocity = direction * _speed;
+		Vector3 velocity = Velocity;
+
+        velocity.Y -= _gravity * (float)delta;
+		
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		{
+			velocity.Y = _jumpSpeed;
+        }
+
+		Vector2 inputDir = Input.GetVector("strafe_left", "strafe_right", "walk_forward", "walk_backward");
+		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0.0f, inputDir.Y)).Normalized();
+
+		velocity.X = direction.X * _speed;
+		velocity.Z = direction.Z * _speed;
+
+        //Velocity = velocity;
+
+
+        Velocity = velocity;
 		MoveAndSlide();
-	}
-	
-	public override void _Input(InputEvent @event)
+    }
+
+    public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{

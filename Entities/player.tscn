@@ -34,6 +34,7 @@ _data = {
 size = Vector3(2, 1, 2)
 
 [node name="Player" type="CharacterBody3D"]
+floor_stop_on_slope = false
 script = ExtResource("1_do78j")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
