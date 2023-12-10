@@ -10,6 +10,8 @@ export_presets.cfg
 *.translation
 
 # Mono-specific ignores
+.vs/PriateGame/FileContentIndex/
+.vs/PriateGame/DesignTimeBuild/
 .mono/
 data_*/
 mono_crash.*.json
