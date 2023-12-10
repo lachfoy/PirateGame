@@ -87,5 +87,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58971, 1.09241, 6.23528)
 
 [node name="Pickup4" parent="." instance=ExtResource("8_4daks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34856, 1.21913, 1.30552)
-
-[connection signal="GunShot" from="Player" to="Enemy" method="_on_player_gun_shot"]

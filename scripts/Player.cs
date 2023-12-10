@@ -1,11 +1,8 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-
 public partial class Player : CharacterBody3D
 {
-	public float _speed = 8.0f;
-	public float _mouseSens = 0.3f;
+    private float _speed = 8.0f;
+	private float _mouseSens = 0.3f;
 	private Camera3D _camera;
 	private RayCast3D _ray;
 	private AnimationPlayer _animationPlayer;
@@ -15,7 +12,7 @@ public partial class Player : CharacterBody3D
 	private bool _canShoot = true;
 	
 	[Signal]
-	public delegate void PickupNotificationEventHandler(string weaponName);
+	public delegate void NotificationEventHandler(string notificationString);
 
 	[Signal]
 	public delegate void WeaponChangedEventHandler(int newIndex, int ammo); // Maybe this should be weapon type instead of index
@@ -29,6 +26,7 @@ public partial class Player : CharacterBody3D
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/Sprite2D/AnimationPlayer");
 		_ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
+
 		// Initialize all the weapons
 		_weapons = new Weapon[(int)EWeaponType.WeaponTypeCount];
 		_weapons[(int)EWeaponType.Slingshot] = new Slingshot();
@@ -54,10 +52,14 @@ public partial class Player : CharacterBody3D
 				{
 					_weapons[_currentWeaponIndex].Shoot();
 
-					EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+                    //  _ray.GetCollider() returns null?
+                    EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+                    
+					string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+                    EmitSignal(SignalName.Notification, notificationString);
 
 					_animationPlayer.Play("fire");
-					_canShoot = false;
+                    _canShoot = false;
 
 					_weapons[_currentWeaponIndex].Ammo--;
 					EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
@@ -98,11 +100,6 @@ public partial class Player : CharacterBody3D
 
 		Velocity = direction * _speed;
 		MoveAndSlide();
-		for (int i = 0; i < GetSlideCollisionCount(); i++)
-		{
-			var collision = GetSlideCollision(i);
-			//GD.Print("I collided with ", ((Node)collision.GetCollider()).Name);
-		}
 	}
 	
 	public override void _Input(InputEvent @event)
@@ -116,17 +113,12 @@ public partial class Player : CharacterBody3D
 
 			// Clamp the new angle to the range [-70, 70]
 			newAngle = Mathf.Clamp(newAngle, -70, 70);
-
-			// Apply the clamped angle
 			_camera.RotationDegrees = new Vector3(newAngle, _camera.RotationDegrees.Y, _camera.RotationDegrees.Z);
 		}
 	}
 
 	private void _on_area_3d_area_entered(Area3D area)
 	{
-		// Replace with function body.
-		GD.Print("Weapon pickup");
-		
 		Pickup pickup = area as Pickup;
 		if (pickup != null)
 		{
@@ -140,15 +132,16 @@ public partial class Player : CharacterBody3D
 				_currentWeaponIndex = weaponPickupIndex;
 				EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
 
-				EmitSignal(SignalName.PickupNotification, _weapons[weaponPickupIndex].WeaponName); // Emit a pickup notifaction signal
+                string notificationString = string.Format("Picked up {0}", _weapons[weaponPickupIndex].WeaponName);
+                EmitSignal(SignalName.Notification, notificationString); // Emit a notifaction signal
 			}
 			else // Otherwise add ammo to the weapon
 			{
 				_weapons[weaponPickupIndex].Ammo += pickup.Ammo;
 				EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
 
-				string notificationString = string.Format("{0} Ammo for {1}", pickup.Ammo, _weapons[weaponPickupIndex].WeaponName);
-				EmitSignal(SignalName.PickupNotification, notificationString); // Emit a pickup notifaction signal
+				string notificationString = string.Format("Picked up {0} Ammo for {1}", pickup.Ammo, _weapons[weaponPickupIndex].WeaponName);
+				EmitSignal(SignalName.Notification, notificationString); // Emit a notifaction signal
 			}
 
 			pickup.QueueFree(); // Delete the pickup
@@ -163,7 +156,3 @@ public partial class Player : CharacterBody3D
 		}
 	}
 }
-
-
-
-

@@ -96,8 +96,7 @@ shape = SubResource("CapsuleShape3D_hcds3")
 shape = SubResource("BoxShape3D_1qr63")
 
 [connection signal="GunShot" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_gun_shot"]
-[connection signal="PickupNotification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_pickup_notification"]
-[connection signal="PickupNotification" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_pickup_notification"]
+[connection signal="Notification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_notification"]
 [connection signal="WeaponChanged" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_weapon_changed"]
 [connection signal="animation_finished" from="CanvasLayer/Control/Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="WeaponPickupArea" to="." method="_on_area_3d_area_entered"]
