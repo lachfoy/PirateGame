@@ -24,7 +24,7 @@ public partial class Player : CharacterBody3D
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/Sprite2D/AnimationPlayer");
+		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/WeaponSpriteControl/Sprite2D/AnimationPlayer");
 		_ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
 
 		// Initialize all the weapons
@@ -51,11 +51,12 @@ public partial class Player : CharacterBody3D
 				if (_weapons[_currentWeaponIndex].Ammo > 0 && _canShoot)
 				{
 					_weapons[_currentWeaponIndex].Shoot();
-
-                    //  _ray.GetCollider() returns null?
-                    EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+					
+					GodotObject target = _ray.GetCollider();
+					if (target != null)
+						EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
                     
-					string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+					string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
                     EmitSignal(SignalName.Notification, notificationString);
 
 					_animationPlayer.Play("fire");
@@ -153,6 +154,7 @@ public partial class Player : CharacterBody3D
 		if (anim_name == "fire")
 		{
 			_canShoot = true;
+			GD.Print("Can Shoot");
 		}
 	}
 }

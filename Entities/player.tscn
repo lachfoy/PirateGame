@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cf4xa332dlkwp"]
+[gd_scene load_steps=11 format=3 uid="uid://cf4xa332dlkwp"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_do78j"]
 [ext_resource type="Theme" uid="uid://cntca1dvo47g2" path="res://ui/new_theme.tres" id="2_bqesb"]
 [ext_resource type="Script" path="res://scripts/NotificationList.cs" id="2_owtp3"]
 [ext_resource type="Texture2D" uid="uid://oxfuaqqay7i7" path="res://sprites/outlaws.png" id="2_xheyt"]
 [ext_resource type="Script" path="res://scripts/AmmoCounter.cs" id="4_ncqq3"]
+[ext_resource type="Texture2D" uid="uid://co4myfdps2eut" path="res://sprites/crosshair.png" id="6_tmgat"]
 
 [sub_resource type="Animation" id="Animation_3qt7p"]
 resource_name = "fire"
@@ -66,17 +67,47 @@ grow_vertical = 0
 horizontal_alignment = 2
 script = ExtResource("4_ncqq3")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+[node name="WeaponSpriteControl" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -128.0
+offset_right = 20.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control/WeaponSpriteControl"]
 texture_filter = 1
-position = Vector2(563, 530)
-scale = Vector2(0.783223, 0.537081)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_xheyt")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Sprite2D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/WeaponSpriteControl/Sprite2D"]
 libraries = {
 "": SubResource("AnimationLibrary_qdfxs")
 }
+
+[node name="CrosshairControl" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control/CrosshairControl"]
+texture = ExtResource("6_tmgat")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0414677, 1.6, 0.000617981)
@@ -98,5 +129,5 @@ shape = SubResource("BoxShape3D_1qr63")
 [connection signal="GunShot" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_gun_shot"]
 [connection signal="Notification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_notification"]
 [connection signal="WeaponChanged" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_weapon_changed"]
-[connection signal="animation_finished" from="CanvasLayer/Control/Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="CanvasLayer/Control/WeaponSpriteControl/Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="WeaponPickupArea" to="." method="_on_area_3d_area_entered"]
