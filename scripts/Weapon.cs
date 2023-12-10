@@ -15,6 +15,7 @@ public class Weapon
 	public bool HasThisWeapon = false;
 	public String WeaponName = "generic weapon";
 	public int Ammo = 10;
+	public int Damage = 10;
 
 	public virtual void Shoot() {}
 }
@@ -37,6 +38,7 @@ public class Pistol : Weapon
 	public Pistol()
 	{
 		WeaponName = "Pistol";
+		Damage = 60;
 	}
 
 	public override void Shoot()

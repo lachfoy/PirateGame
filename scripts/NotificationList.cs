@@ -22,6 +22,12 @@ public partial class NotificationList : VBoxContainer
 		label.Text = String.Format("Picked up {0}!", weaponName);
 		AddChild(label);
 	}
+	
+	private void _on_player_gun_shot(long damage, ulong id)
+	{
+		NotificationLabel label = new NotificationLabel();
+		label.Text = String.Format("Fire a shot for {0} Damage! Hit {1}", damage, id);
+		AddChild(label);
+	}
 }
-
 

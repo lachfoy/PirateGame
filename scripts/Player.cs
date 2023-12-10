@@ -7,6 +7,7 @@ public partial class Player : CharacterBody3D
 	public float _speed = 8.0f;
 	public float _mouseSens = 0.3f;
 	private Camera3D _camera;
+	private RayCast3D _ray;
 	private AnimationPlayer _animationPlayer;
 
 	private Weapon[] _weapons; // List of weapons
@@ -19,12 +20,15 @@ public partial class Player : CharacterBody3D
 	[Signal]
 	public delegate void WeaponChangedEventHandler(int newIndex, int ammo); // Maybe this should be weapon type instead of index
 
+	[Signal]
+	public delegate void GunShotEventHandler(int damage, int id);
+
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/Sprite2D/AnimationPlayer");
-
+		_ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		// Initialize all the weapons
 		_weapons = new Weapon[(int)EWeaponType.WeaponTypeCount];
 		_weapons[(int)EWeaponType.Slingshot] = new Slingshot();
@@ -34,7 +38,7 @@ public partial class Player : CharacterBody3D
 	}
 
 	public override void _Process(double delta)
-	{
+	{		
 		// Easy quick way to quit the game
 		if (Input.IsPhysicalKeyPressed(Key.Escape))
 		{
@@ -49,10 +53,12 @@ public partial class Player : CharacterBody3D
 				if (_weapons[_currentWeaponIndex].Ammo > 0 && _canShoot)
 				{
 					_weapons[_currentWeaponIndex].Shoot();
-					
+
+					EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, _ray.GetCollider().GetInstanceId());
+
 					_animationPlayer.Play("fire");
 					_canShoot = false;
-					
+
 					_weapons[_currentWeaponIndex].Ammo--;
 					EmitSignal(SignalName.WeaponChanged, _currentWeaponIndex, _weapons[_currentWeaponIndex].Ammo); // Emit a weapon changed signal
 				}
@@ -91,7 +97,6 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, -1, inputDir.Y)).Normalized();
 
 		Velocity = direction * _speed;
-
 		MoveAndSlide();
 		for (int i = 0; i < GetSlideCollisionCount(); i++)
 		{

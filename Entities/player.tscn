@@ -81,6 +81,11 @@ libraries = {
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0414677, 1.6, 0.000617981)
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -999)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+debug_shape_thickness = 3
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0416832, 0.999999, 0.000617981)
 shape = SubResource("CapsuleShape3D_hcds3")
@@ -90,6 +95,7 @@ shape = SubResource("CapsuleShape3D_hcds3")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="WeaponPickupArea"]
 shape = SubResource("BoxShape3D_1qr63")
 
+[connection signal="GunShot" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_gun_shot"]
 [connection signal="PickupNotification" from="." to="CanvasLayer/Control/NotificationList" method="_on_player_pickup_notification"]
 [connection signal="PickupNotification" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_pickup_notification"]
 [connection signal="WeaponChanged" from="." to="CanvasLayer/Control/AmmoCounter" method="_on_player_weapon_changed"]

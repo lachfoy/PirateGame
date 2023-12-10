@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3fsj6jy33utt"]
+[gd_scene load_steps=4 format=3 uid="uid://c3fsj6jy33utt"]
 
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_1q6t0"]
 [ext_resource type="Texture2D" uid="uid://bv1nl6fye5d7s" path="res://sprites/doom.png" id="1_248s0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5wypm"]
 size = Vector3(0.394653, 1.70532, 1.18054)
 
 [node name="Enemy" type="Node3D"]
+script = ExtResource("1_1q6t0")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 
