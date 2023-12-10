@@ -4,7 +4,8 @@ public partial class Player : CharacterBody3D
 	private bool _active = true;
 
 	private float _speed = 6.0f;
-	private float _mouseSens = 0.3f;
+	private float _strafeSpeed = 5.0f;
+    private float _mouseSens = 0.3f;
 	private Camera3D _camera;
 	private RayCast3D _ray;
 	private AnimationPlayer _animationPlayer;
@@ -17,6 +18,9 @@ public partial class Player : CharacterBody3D
 	private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 	private float _jumpSpeed = 3.0f;
 
+	// Camera tilt
+	private float _tiltAngle = 1.0f;
+	private float _tiltSpeed = 10.0f;
 
     [Signal]
 	public delegate void NotificationEventHandler(string notificationString);
@@ -118,13 +122,20 @@ public partial class Player : CharacterBody3D
         }
 
 		Vector2 inputDir = Input.GetVector("strafe_left", "strafe_right", "walk_forward", "walk_backward");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0.0f, inputDir.Y)).Normalized();
+		inputDir.X *= _strafeSpeed;
+		inputDir.Y *= _speed;
 
-		velocity.X = direction.X * _speed;
-		velocity.Z = direction.Z * _speed;
+		// Not happy with this yet. Might remove it.
+		Vector3 cameraRotation = _camera.Rotation;
+		float targetTilt = -inputDir.X * Mathf.DegToRad(_tiltAngle);
+		float currentTilt = Mathf.LerpAngle(cameraRotation.Z, targetTilt, _tiltSpeed * (float)delta);
+        cameraRotation.Z = currentTilt;
+		_camera.Rotation = cameraRotation;
 
-        //Velocity = velocity;
+		Vector3 direction = Transform.Basis * new Vector3(inputDir.X, 0.0f, inputDir.Y);
 
+		velocity.X = direction.X;
+		velocity.Z = direction.Z;
 
         Velocity = velocity;
 		MoveAndSlide();
