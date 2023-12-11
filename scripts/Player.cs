@@ -22,6 +22,8 @@ public partial class Player : CharacterBody3D
 	private float _tiltAngle = 1.0f;
 	private float _tiltSpeed = 10.0f;
 
+    PackedScene _bulletDecal = GD.Load<PackedScene>("res://Entities/BulletDecal.tscn");
+
     [Signal]
 	public delegate void NotificationEventHandler(string notificationString);
 
@@ -68,10 +70,27 @@ public partial class Player : CharacterBody3D
 					
 					GodotObject target = _ray.GetCollider();
 					if (target != null)
+					{
 						EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
-					
-					string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
-					EmitSignal(SignalName.Notification, notificationString);
+
+						string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
+						EmitSignal(SignalName.Notification, notificationString);
+
+						// Bullet decal
+						var bulletDecal = _bulletDecal.Instantiate() as BulletDecal;
+                        GetTree().Root.AddChild(bulletDecal);
+
+                        Vector3 collisionPoint = _ray.GetCollisionPoint();
+						Vector3 collisionNormal = _ray.GetCollisionNormal();
+                        
+                        bulletDecal.GlobalPosition = collisionPoint;
+
+                        Vector3 up = new Vector3(0, 1, 0);
+						if (Mathf.Abs(collisionNormal.Dot(up)) > 0.99)
+							up = new Vector3(1, 0, 0);
+
+                        bulletDecal.LookAt(collisionPoint + collisionNormal, up, true);
+                    }
 
 					_animationPlayer.Play("fire");
 					_canShoot = false;
@@ -126,11 +145,11 @@ public partial class Player : CharacterBody3D
 		inputDir.Y *= _speed;
 
 		// Not happy with this yet. Might remove it.
-		Vector3 cameraRotation = _camera.Rotation;
-		float targetTilt = -inputDir.X * Mathf.DegToRad(_tiltAngle);
-		float currentTilt = Mathf.LerpAngle(cameraRotation.Z, targetTilt, _tiltSpeed * (float)delta);
-        cameraRotation.Z = currentTilt;
-		_camera.Rotation = cameraRotation;
+		//Vector3 cameraRotation = _camera.Rotation;
+		//float targetTilt = -inputDir.X * Mathf.DegToRad(_tiltAngle);
+		//float currentTilt = Mathf.LerpAngle(cameraRotation.Z, targetTilt, _tiltSpeed * (float)delta);
+  //      cameraRotation.Z = currentTilt;
+		//_camera.Rotation = cameraRotation;
 
 		Vector3 direction = Transform.Basis * new Vector3(inputDir.X, 0.0f, inputDir.Y);
 

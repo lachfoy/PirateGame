@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmwtdf43kcf7k"]
+
+[ext_resource type="Texture2D" uid="uid://co4myfdps2eut" path="res://sprites/crosshair.png" id="1_iif1n"]
+[ext_resource type="Script" path="res://scripts/BulletDecal.cs" id="1_lr7f6"]
+
+[node name="Decal" type="Node3D"]
+script = ExtResource("1_lr7f6")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+texture = ExtResource("1_iif1n")
