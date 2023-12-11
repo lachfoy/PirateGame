@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b27ihnjibxxb7"]
+
+[ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_obwfu"]
+
+[resource]
+script = ExtResource("1_obwfu")
+WeaponType = 0
+WeaponName = "Slingshot"
+Ammo = 10
+Damage = 10
+Slot = 0

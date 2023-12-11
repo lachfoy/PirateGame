@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxoup8dwryxwq"]
+[gd_scene load_steps=5 format=3 uid="uid://bxoup8dwryxwq"]
 
 [ext_resource type="Script" path="res://scripts/Pickup.cs" id="1_eg3jl"]
+[ext_resource type="Resource" uid="uid://bx1ihb382gl80" path="res://weapons/Rifle.tres" id="2_82om1"]
 [ext_resource type="Texture2D" uid="uid://b04sehhdjqoij" path="res://sprites/rifle.png" id="2_n4fix"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hit0i"]
 
 [node name="Pickup" type="Area3D"]
 script = ExtResource("1_eg3jl")
-WeaponType = 3
+Weapon = ExtResource("2_82om1")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 2

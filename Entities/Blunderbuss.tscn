@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvsymru5gykx7"]
+[gd_scene load_steps=5 format=3 uid="uid://dvsymru5gykx7"]
 
 [ext_resource type="Script" path="res://scripts/Pickup.cs" id="1_ukb17"]
+[ext_resource type="Resource" uid="uid://81nctef0ncls" path="res://weapons/Blunderbuss.tres" id="2_4004t"]
 [ext_resource type="Texture2D" uid="uid://koqgrxv5geit" path="res://sprites/blunderbuss.png" id="2_ewjbo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hit0i"]
 
 [node name="Pickup" type="Area3D"]
 script = ExtResource("1_ukb17")
-WeaponType = 2
+Weapon = ExtResource("2_4004t")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 2

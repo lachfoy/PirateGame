@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bx1ihb382gl80"]
+
+[ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_ja8me"]
+
+[resource]
+script = ExtResource("1_ja8me")
+WeaponType = 3
+WeaponName = "Rifle"
+Ammo = 10
+Damage = 10
+Slot = 0
