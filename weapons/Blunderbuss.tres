@@ -1,11 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://81nctef0ncls"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://81nctef0ncls"]
 
+[ext_resource type="Texture2D" uid="uid://koqgrxv5geit" path="res://sprites/blunderbuss.png" id="1_77vjg"]
 [ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_ov04f"]
 
 [resource]
 script = ExtResource("1_ov04f")
+WeaponName = "Musketoon"
+WeaponSlot = 0
 WeaponType = 2
-WeaponName = "Blunderbuss"
 Ammo = 10
 Damage = 10
-Slot = 0
+AccuracyPentalty = 0.5
+FirstPersonSpritePosition = Vector2(0, 0)
+PickupSprite = ExtResource("1_77vjg")

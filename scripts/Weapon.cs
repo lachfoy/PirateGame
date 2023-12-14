@@ -5,26 +5,48 @@ public partial class Weapon : Resource
     public enum EWeaponType
     {
 	    Slingshot,
-	    Pistol,
+	    //SingleRayCast,
+        Pistol,
 	    Blunderbuss,
 	    Rifle,
 	    WeaponTypeCount
     }
 
-    [Export]
-    public EWeaponType WeaponType = EWeaponType.WeaponTypeCount;
+    public enum EWeaponSlot
+    {
+        Slot1,
+        Slot2,
+        Slot3,
+        Slot4,
+        WeaponSlotCount
+    }
 
     [Export]
-	public string WeaponName = "generic weapon";
+	public string WeaponName;
 
     [Export]
-    public int Ammo = 10;
+    public EWeaponSlot WeaponSlot;
 
     [Export]
-    public int Damage = 10;
+    public EWeaponType WeaponType;
 
     [Export]
-    public float AccuracyPentalty = 0.4f;
+    public int Ammo;
+
+    [Export]
+    public int Damage;
+
+    [Export]
+    public float AccuracyPentalty;
+
+    [Export]
+    public Texture2D FirstPersonSprite;
+
+    [Export]
+    public Vector2 FirstPersonSpritePosition;
+
+    [Export]
+    public Texture2D PickupSprite;
 
     //[Export]
     //public int Slot = 0;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dloilagrb54y3"]
+[gd_scene load_steps=68 format=3 uid="uid://dloilagrb54y3"]
 
 [ext_resource type="Script" path="res://addons/qodot/src/nodes/qodot_map.gd" id="1_40d6j"]
 [ext_resource type="Resource" uid="uid://c36hv0o6g0udo" path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" id="2_y34xx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://db72a3lj4a3vh" path="res://textures/woodfloor.png" id="4_5bm1f"]
 [ext_resource type="Texture2D" uid="uid://dakvpbnr4qmet" path="res://textures/woodwall.png" id="5_avkei"]
 [ext_resource type="PackedScene" uid="uid://cjmr5k72rux3o" path="res://Entities/Pistol.tscn" id="7_mmak8"]
+[ext_resource type="PackedScene" uid="uid://dvsymru5gykx7" path="res://Entities/Blunderbuss.tscn" id="7_ooc0u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kk82"]
 
@@ -413,3 +414,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17674, 0.477043, -4.59822)
 
 [node name="Pickup3" parent="." instance=ExtResource("7_mmak8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91396, 0.477043, -2.03552)
+
+[node name="Pickup4" parent="." instance=ExtResource("7_ooc0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13144, 0.684305, -6.1612)

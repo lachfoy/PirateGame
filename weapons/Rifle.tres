@@ -1,11 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bx1ihb382gl80"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bx1ihb382gl80"]
 
+[ext_resource type="Texture2D" uid="uid://b04sehhdjqoij" path="res://sprites/rifle.png" id="1_3ccut"]
 [ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_ja8me"]
 
 [resource]
 script = ExtResource("1_ja8me")
-WeaponType = 3
 WeaponName = "Rifle"
+WeaponSlot = 0
+WeaponType = 3
 Ammo = 10
 Damage = 10
-Slot = 0
+AccuracyPentalty = 0.5
+FirstPersonSpritePosition = Vector2(0, 0)
+PickupSprite = ExtResource("1_3ccut")

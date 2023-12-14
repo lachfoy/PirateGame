@@ -1,11 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b27ihnjibxxb7"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b27ihnjibxxb7"]
 
+[ext_resource type="Texture2D" uid="uid://c22jqwklm0rk" path="res://sprites/slingshot.png" id="1_i6rvk"]
 [ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_obwfu"]
 
 [resource]
 script = ExtResource("1_obwfu")
-WeaponType = 0
 WeaponName = "Slingshot"
+WeaponSlot = 0
+WeaponType = 0
 Ammo = 10
 Damage = 10
-Slot = 0
+AccuracyPentalty = 0.5
+FirstPersonSpritePosition = Vector2(0, 0)
+PickupSprite = ExtResource("1_i6rvk")

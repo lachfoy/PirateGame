@@ -205,7 +205,7 @@ public partial class Player : CharacterBody3D
 	{
 		// Consider reversing this dependency?
 		Pickup pickup = area as Pickup;
-		if (pickup != null)
+		if (pickup.Weapon != null)
 		{
 			// If we don't already have that weapon then we add it
 			int weaponPickupIndex = (int)pickup.Weapon.WeaponType;
