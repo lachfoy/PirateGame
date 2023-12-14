@@ -1,4 +1,8 @@
 using Godot;
+using Godot.Collections;
+using System;
+using System.Linq;
+
 public partial class Player : CharacterBody3D
 {
 	private bool _active = true;
@@ -8,7 +12,7 @@ public partial class Player : CharacterBody3D
     private float _mouseSens = 0.3f;
 	private Camera3D _camera;
 	private Vector3 _cameraOrigin;
-	private RayCast3D _ray;
+
 	private AnimationPlayer _animationPlayer;
 	private Sprite2D _weaponSprite;
 	private Vector2 _weaponSpriteOrigin;
@@ -22,7 +26,9 @@ public partial class Player : CharacterBody3D
 
     private PackedScene _bulletDecal = GD.Load<PackedScene>("res://Entities/BulletDecal.tscn");
 
-	[Export]
+	private RandomNumberGenerator _rng;
+
+    [Export]
 	public Label DebugLabel;
 
 	// Camera bob
@@ -50,10 +56,10 @@ public partial class Player : CharacterBody3D
 
         _weaponSpriteOrigin = _weaponSprite.Transform.Origin; // save the initial origin
 
-        _ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
-
 		// Initialize the weapons list
 		_weapons = new Weapon[(int)Weapon.EWeaponType.WeaponTypeCount];
+
+		_rng = new RandomNumberGenerator();
 	}
 
 	public override void _Process(double delta)
@@ -73,31 +79,62 @@ public partial class Player : CharacterBody3D
 			{
 				if (_weapons[_currentWeaponIndex].Ammo > 0 && _canShoot)
 				{
-					GodotObject target = _ray.GetCollider();
-					if (target != null)
+					// TODO : refactor into some bite sized functions
+					// Get the physics state
+                    PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+
+					float randomOffsetAmount = 0.1f; // TODO : get this from the weapon
+					int numberOfShots = 10; // TODO : get this from the weapon
+					for (int i = 0; i < numberOfShots; i++)
 					{
-						EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
+						// Calculate a random offset
+                        Vector3 randomOffset = new Vector3(
+                            _rng.Randf() * 2.0f - 1.0f,
+                            _rng.Randf() * 2.0f - 1.0f,
+                            _rng.Randf() * 2.0f - 1.0f
+						) * randomOffsetAmount;
 
-						string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
-						EmitSignal(SignalName.Notification, notificationString);
+                        // Make ray query to the physics server
+                        Vector3 rayOrigin = _camera.GlobalTransform.Origin;
+						Vector3 rayDirection = -_camera.GlobalBasis.Z;
+						rayDirection += randomOffset;
+						rayDirection = rayDirection.Normalized() * 1000.0f;
 
-						// Bullet decal
-						var bulletDecal = _bulletDecal.Instantiate() as BulletDecal;
-                        GetTree().Root.AddChild(bulletDecal);
+                        PhysicsRayQueryParameters3D rayQuery = PhysicsRayQueryParameters3D.Create(
+                            rayOrigin,
+                            rayOrigin + rayDirection,
+                            0b00000000_00000000_00000000_00000001 // Collision mask 1
+                        );
 
-                        Vector3 collisionPoint = _ray.GetCollisionPoint();
-						Vector3 collisionNormal = _ray.GetCollisionNormal();
-                        
-                        bulletDecal.GlobalPosition = collisionPoint;
+						Dictionary rayResult = spaceState.IntersectRay(rayQuery);
 
-                        Vector3 up = new Vector3(0, 1, 0);
-						if (Mathf.Abs(collisionNormal.Dot(up)) > 0.99f)
+						// If the result is not empty, then we hit something
+						if (rayResult.Count > 0) // For some reason result.IsEmpty doesn't exist, when according the documentation it should...
 						{
-							up = new Vector3(1, 0, 0);
-						}
+							GodotObject target = rayResult["collider"].AsGodotObject();
+							EmitSignal(SignalName.GunShot, _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
 
-                        bulletDecal.LookAt(collisionPoint + collisionNormal, up, true);
-                    }
+							string notificationString = string.Format("Fire a shot for {0} Damage! Hit {1}", _weapons[_currentWeaponIndex].Damage, target.GetInstanceId());
+							EmitSignal(SignalName.Notification, notificationString);
+
+							Vector3 collisionPoint = rayResult["position"].AsVector3();
+							Vector3 collisionNormal = rayResult["normal"].AsVector3();
+                        
+							// Bullet decal
+							var bulletDecal = _bulletDecal.Instantiate() as BulletDecal;
+							GetTree().Root.AddChild(bulletDecal);
+
+							bulletDecal.GlobalPosition = collisionPoint;
+
+							Vector3 up = new Vector3(0, 1, 0);
+							if (Mathf.Abs(collisionNormal.Dot(up)) > 0.99f)
+							{
+								up = new Vector3(1, 0, 0);
+							}
+
+							bulletDecal.LookAt(collisionPoint + collisionNormal, up, true);
+						}
+					}
 
 					_animationPlayer.Play("fire");
 					_canShoot = false;
@@ -173,7 +210,7 @@ public partial class Player : CharacterBody3D
         Vector3 cameraPos = _camera.Transform.Origin;
         cameraPos.X = Mathf.Lerp(cameraPos.X, _cameraOrigin.X + bobY, (float)delta);
         cameraPos.Y = Mathf.Lerp(cameraPos.Y, _cameraOrigin.Y + bobX, (float)delta);
-        //_camera.Transform = new Transform3D(_camera.Basis, cameraPos);
+        //_camera.Transform = new Transform3D(_camera.Basis, cameraPos); // commented out camera bob for now
 
         Vector2 weaponSpriteOrigin = _weaponSprite.Transform.Origin;
         weaponSpriteOrigin.X = Mathf.Lerp(weaponSpriteOrigin.X, _weaponSpriteOrigin.X + bobY * 100.0f, (float)delta);
