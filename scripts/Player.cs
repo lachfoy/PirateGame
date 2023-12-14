@@ -7,9 +7,11 @@ public partial class Player : CharacterBody3D
 	private float _strafeSpeed = 5.0f;
     private float _mouseSens = 0.3f;
 	private Camera3D _camera;
+	private Vector3 _cameraOrigin;
 	private RayCast3D _ray;
 	private AnimationPlayer _animationPlayer;
 	private Sprite2D _weaponSprite;
+	private Vector2 _weaponSpriteOrigin;
 
 	private Weapon[] _weapons; // List of weapons
 	private int _currentWeaponIndex = -1;
@@ -18,11 +20,15 @@ public partial class Player : CharacterBody3D
 	private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 	private float _jumpSpeed = 3.0f;
 
-	// Camera tilt
-	private float _tiltAngle = 1.0f;
-	private float _tiltSpeed = 10.0f;
+    private PackedScene _bulletDecal = GD.Load<PackedScene>("res://Entities/BulletDecal.tscn");
 
-    PackedScene _bulletDecal = GD.Load<PackedScene>("res://Entities/BulletDecal.tscn");
+	[Export]
+	public Label DebugLabel;
+
+	// Camera bob
+	private float _bobAmount = 0.8f;
+	private float _maxSpeed = 6.0f;
+	private float _bobSpeed = 4.0f;
 
     [Signal]
 	public delegate void NotificationEventHandler(string notificationString);
@@ -36,10 +42,15 @@ public partial class Player : CharacterBody3D
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("Camera3D");
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		_cameraOrigin = _camera.Transform.Origin; // Save the initial camera LOCAL origin as a reference point.
+
+        Input.MouseMode = Input.MouseModeEnum.Captured;
 		_animationPlayer = GetNode<AnimationPlayer>("CanvasLayer/Control/WeaponSpriteControl/Sprite2D/AnimationPlayer");
 		_weaponSprite = GetNode<Sprite2D>("CanvasLayer/Control/WeaponSpriteControl/Sprite2D");
-		_ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
+
+        _weaponSpriteOrigin = _weaponSprite.Transform.Origin; // save the initial origin
+
+        _ray = GetNode<RayCast3D>("Camera3D/RayCast3D");
 
 		// Initialize the weapons list
 		_weapons = new Weapon[(int)Weapon.EWeaponType.WeaponTypeCount];
@@ -80,7 +91,7 @@ public partial class Player : CharacterBody3D
                         bulletDecal.GlobalPosition = collisionPoint;
 
                         Vector3 up = new Vector3(0, 1, 0);
-						if (Mathf.Abs(collisionNormal.Dot(up)) > 0.99)
+						if (Mathf.Abs(collisionNormal.Dot(up)) > 0.99f)
 						{
 							up = new Vector3(1, 0, 0);
 						}
@@ -140,20 +151,39 @@ public partial class Player : CharacterBody3D
 		inputDir.X *= _strafeSpeed;
 		inputDir.Y *= _speed;
 
-		// Not happy with this yet. Might remove it.
-		//Vector3 cameraRotation = _camera.Rotation;
-		//float targetTilt = -inputDir.X * Mathf.DegToRad(_tiltAngle);
-		//float currentTilt = Mathf.LerpAngle(cameraRotation.Z, targetTilt, _tiltSpeed * (float)delta);
-  //      cameraRotation.Z = currentTilt;
-		//_camera.Rotation = cameraRotation;
-
 		Vector3 direction = Transform.Basis * new Vector3(inputDir.X, 0.0f, inputDir.Y);
 
 		velocity.X = direction.X;
 		velocity.Z = direction.Z;
 
+        float normalizedSpeed = Mathf.Remap(Velocity.Length(), 0.0f, _maxSpeed, 0.0f, 1.0f);
+
+        float bobTime = (Time.GetTicksMsec() / 1000.0f) * _bobSpeed;
+
+        float bobX = Mathf.Sin(bobTime * 2.0f) * _bobAmount;
+        float bobY = Mathf.Cos(bobTime) * _bobAmount;
+
+        if (normalizedSpeed <= 0.0f || !IsOnFloor())
+        {
+            bobX = 0.0f;
+            bobY = 0.0f;
+        }
+
+		// There are some magic numbers here . Please ignore.
+        Vector3 cameraPos = _camera.Transform.Origin;
+        cameraPos.X = Mathf.Lerp(cameraPos.X, _cameraOrigin.X + bobY, (float)delta);
+        cameraPos.Y = Mathf.Lerp(cameraPos.Y, _cameraOrigin.Y + bobX, (float)delta);
+        //_camera.Transform = new Transform3D(_camera.Basis, cameraPos);
+
+        Vector2 weaponSpriteOrigin = _weaponSprite.Transform.Origin;
+        weaponSpriteOrigin.X = Mathf.Lerp(weaponSpriteOrigin.X, _weaponSpriteOrigin.X + bobY * 100.0f, (float)delta);
+        weaponSpriteOrigin.Y = Mathf.Lerp(weaponSpriteOrigin.Y, _weaponSpriteOrigin.Y + bobX * 100.0f, (float)delta);
+        _weaponSprite.Transform = new Transform2D(0.0f, weaponSpriteOrigin);
+
         Velocity = velocity;
 		MoveAndSlide();
+
+        DebugLabel.Text = string.Format("velocity = {0}\nnormalized speed = {1}\nbob target = {2}, {3}", velocity.ToString(), normalizedSpeed, bobX, bobY);
     }
 
     public override void _Input(InputEvent @event)
