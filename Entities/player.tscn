@@ -29,6 +29,7 @@ _data = {
 }
 
 [sub_resource type="SystemFont" id="SystemFont_emx3d"]
+subpixel_positioning = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hcds3"]
 
@@ -41,6 +42,7 @@ script = ExtResource("1_do78j")
 DebugLabel = NodePath("CanvasLayer/Control/DebugLabel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -78,16 +80,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -128.0
-offset_right = 20.0
-offset_bottom = -88.0
+offset_top = -98.0
+offset_bottom = -98.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control/WeaponSpriteControl"]
 texture_filter = 1
-scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_xheyt")
 hframes = 4
 
@@ -103,10 +102,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 

@@ -7,7 +7,7 @@
 script = ExtResource("1_vjejj")
 WeaponName = "Flintlock Pistol"
 WeaponSlot = 0
-WeaponType = 4
+WeaponType = 1
 Ammo = 10
 Damage = 10
 AccuracyPentalty = 0.5

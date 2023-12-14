@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dloilagrb54y3"]
+[gd_scene load_steps=70 format=3 uid="uid://dloilagrb54y3"]
 
 [ext_resource type="Script" path="res://addons/qodot/src/nodes/qodot_map.gd" id="1_40d6j"]
 [ext_resource type="Resource" uid="uid://c36hv0o6g0udo" path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" id="2_y34xx"]
@@ -12,7 +12,14 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_og2q6"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k0i6x"]
+
+[sub_resource type="Sky" id="Sky_fsf3r"]
+sky_material = SubResource("ProceduralSkyMaterial_k0i6x")
+
 [sub_resource type="Environment" id="Environment_q01hk"]
+background_mode = 2
+sky = SubResource("Sky_fsf3r")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb83j"]
 shading_mode = 2
@@ -21,9 +28,11 @@ specular_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6yap"]
 albedo_texture = ExtResource("4_5bm1f")
+texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70l20"]
 albedo_texture = ExtResource("5_avkei")
+texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_am7gb"]
 _surfaces = [{
@@ -231,7 +240,7 @@ floor_constant_speed = true
 environment = SubResource("Environment_q01hk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.637339, -0.764413, 0.0973241, 0.189599, 0.277975, 0.941691, -0.746895, -0.581724, 0.322096, 0, 6, 0)
+transform = Transform3D(-0.541172, 0.840398, -0.0293955, -0.161462, -0.0695394, 0.984426, 0.825266, 0.53749, 0.173325, 0, 6, 0)
 light_color = Color(1, 0.941176, 0.862745, 1)
 shadow_enabled = true
 

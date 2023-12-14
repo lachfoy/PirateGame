@@ -12,6 +12,7 @@ Weapon = ExtResource("2_4004t")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 2
+shaded = true
 texture_filter = 0
 texture = ExtResource("2_ewjbo")
 
