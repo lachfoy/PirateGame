@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dloilagrb54y3"]
+[gd_scene load_steps=72 format=3 uid="uid://dloilagrb54y3"]
 
 [ext_resource type="Script" path="res://addons/qodot/src/nodes/qodot_map.gd" id="1_40d6j"]
 [ext_resource type="Resource" uid="uid://c36hv0o6g0udo" path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" id="2_y34xx"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dakvpbnr4qmet" path="res://textures/woodwall.png" id="5_avkei"]
 [ext_resource type="PackedScene" uid="uid://cjmr5k72rux3o" path="res://Entities/Pistol.tscn" id="7_mmak8"]
 [ext_resource type="PackedScene" uid="uid://dvsymru5gykx7" path="res://Entities/Blunderbuss.tscn" id="7_ooc0u"]
+[ext_resource type="PackedScene" uid="uid://dk540s31jijke" path="res://shaders/water.tscn" id="8_jv0e3"]
+[ext_resource type="PackedScene" uid="uid://c3fsj6jy33utt" path="res://Entities/Enemy.tscn" id="9_1v06y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kk82"]
 
@@ -426,3 +428,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91396, 0.477043, -2.03552)
 
 [node name="Pickup4" parent="." instance=ExtResource("7_ooc0u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13144, 0.684305, -6.1612)
+
+[node name="WaterPlane" parent="." instance=ExtResource("8_jv0e3")]
+transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, -0.0519829, 0)
+
+[node name="Enemy" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
+
+[connection signal="GunShot" from="Player" to="Enemy" method="_on_player_gun_shot"]
