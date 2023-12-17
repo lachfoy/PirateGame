@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://dloilagrb54y3"]
+[gd_scene load_steps=73 format=3 uid="uid://dloilagrb54y3"]
 
 [ext_resource type="Script" path="res://addons/qodot/src/nodes/qodot_map.gd" id="1_40d6j"]
 [ext_resource type="Resource" uid="uid://c36hv0o6g0udo" path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" id="2_y34xx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dvsymru5gykx7" path="res://Entities/Blunderbuss.tscn" id="7_ooc0u"]
 [ext_resource type="PackedScene" uid="uid://dk540s31jijke" path="res://shaders/water.tscn" id="8_jv0e3"]
 [ext_resource type="PackedScene" uid="uid://c3fsj6jy33utt" path="res://Entities/Enemy.tscn" id="9_1v06y"]
+[ext_resource type="PackedScene" uid="uid://bvmc3ol6012ca" path="res://Entities/Spawner.tscn" id="10_mghv6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kk82"]
 
@@ -435,4 +436,27 @@ transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, -0.0519829, 0)
 [node name="Enemy" parent="." instance=ExtResource("9_1v06y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
 
+[node name="Spawner" parent="." instance=ExtResource("10_mghv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 7, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2961, 4, 3.57882)
+
+[node name="Enemy3" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.44906, 2, 5.73809)
+
+[node name="Enemy4" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72617, 2, -5.5474)
+
+[node name="Enemy5" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0482, 2, -5.3642)
+
+[node name="Enemy6" parent="." instance=ExtResource("9_1v06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2319, 2, 0)
+
 [connection signal="GunShot" from="Player" to="Enemy" method="_on_player_gun_shot"]
+[connection signal="GunShot" from="Player" to="Enemy2" method="_on_player_gun_shot"]
+[connection signal="GunShot" from="Player" to="Enemy3" method="_on_player_gun_shot"]
+[connection signal="GunShot" from="Player" to="Enemy4" method="_on_player_gun_shot"]
+[connection signal="GunShot" from="Player" to="Enemy5" method="_on_player_gun_shot"]
+[connection signal="GunShot" from="Player" to="Enemy6" method="_on_player_gun_shot"]
